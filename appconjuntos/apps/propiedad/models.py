@@ -1,9 +1,7 @@
 from django.db import models
-from ..conjunto import ConjuntoModel
+from ..conjunto.models import ConjuntoModel
 
-from simple_history.models import HistoricalRecords
-    
-
+#from simple_history.models import HistoricalRecords
 class PropiedadModel(models.Model):
     interior = models.CharField('interior',max_length = 255, unique = True),
     n_casa_o_apto = models.CharField('Número o Letra de Interior',max_length = 255, unique = True),
@@ -16,7 +14,7 @@ class PropiedadModel(models.Model):
     is_habitada = models.BooleanField(default = True),
     is_arriendo = models.BooleanField(default = False),
     is_active = models.BooleanField(default = True)
-    historical = HistoricalRecords()
+    #historical = HistoricalRecords()
     
     class Meta:
         verbose_name = 'Propiedad'

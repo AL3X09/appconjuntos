@@ -1,8 +1,8 @@
 from django.db import models
-from ..propiedad import PropiedadModel
-from ..users import User
+from ..propiedad.models import PropiedadModel
+from ..users.models import User
 
-from simple_history.models import HistoricalRecords
+#from simple_history.models import HistoricalRecords
 
 
 class PersonModel(models.Model):
@@ -14,7 +14,7 @@ class PersonModel(models.Model):
     fk_usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     is_propietario = models.BooleanField(default = False)
     is_active = models.BooleanField(default = True)
-    historical = HistoricalRecords()
+    #historical = HistoricalRecords()
     
     class Meta:
         verbose_name = 'Persona'

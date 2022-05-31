@@ -3,10 +3,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-pg-s9)dutz*m65ie=#lfk)*b*$qcf*b_hj#(xds(%_gly-l7c@'
 
@@ -28,11 +24,16 @@ BASE_APPS = [
 ]
 
 LOCAL_APPS = [
-
+    'apps.users',
+    'apps.conjunto',
+    'apps.propiedad',
+    'apps.person',
 ]
 
 THIRD_APPS = [
- 'restframework'
+ 'rest_framework',
+ 'rest_framework.authtoken',
+ 'simple_history',
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
@@ -45,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'appconjuntos.urls'
@@ -98,6 +100,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+#metdo de autenticación
+AUTH_USER_MODEL = 'users.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -107,4 +111,4 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+#DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -11,38 +11,14 @@ from rest_framework.decorators import api_view
 from .models import ConjuntoModel
 from .serializer import ConjuntoSerializer
 
-#API Create your views here.
-@api_view(['GET', 'POST', 'DELETE'])
-def Conjunto_all_data(request):
-    try:
-        if request.method == 'GET':
-            asistencia = ConjuntoModel.objects.all()
-            asistencia_serializer = ConjuntoSerializer(asistencia, many=True)
-            return Response(asistencia_serializer.data, status=status.HTTP_200_OK)
-            
-        elif request.method == 'POST':
-            asistencia_data = JSONParser().parse(request)
-            asistencia_serializer = ConjuntoSerializer(data=asistencia_data)
-            if asistencia_serializer.is_valid():
-                asistencia_serializer.save()
-                return JsonResponse(asistencia_serializer.data, status=status.HTTP_201_CREATED)
-            return JsonResponse(asistencia_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        elif request.method=='DELETE':
-            count = asistencia.objects.all().delete()
-            return JsonResponse({'message': '{} se borro correctamente todo el contenido'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
-
-    except ObjectDoesNotExist:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-
 #API View listar todos los datos.
 @api_view(['GET'])
 def Conjunto_list(request):
     try:
         if request.method == 'GET':
-            asistencia = ConjuntoModel.objects.all()
-            asistencia_serializer = ConjuntoSerializer(asistencia, many=True)
-            return Response(asistencia_serializer.data, status=status.HTTP_200_OK)
+            conjunto = ConjuntoModel.objects.all()
+            conjunto_serializer = ConjuntoSerializer(conjunto, many=True)
+            return Response(conjunto_serializer.data, status=status.HTTP_200_OK)
     except ObjectDoesNotExist:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -50,81 +26,74 @@ def Conjunto_list(request):
 @api_view(['GET'])
 def Conjunto_detail(request, pk):
     try:
-        asistencia = ConjuntoModel.objects.get(pk = pk)
-        if not asistencia.is_active:
+        conjunto = ConjuntoModel.objects.get(pk = pk)
+        if not conjunto.is_active:
             return Response(data={'message': 'El valor no esta activo'}, status=status.HTTP_400_BAD_REQUEST)
         
     except ConjuntoModel.DoesNotExist:
         return HttpResponse({'El valor no existe'},status=status.HTTP_400_BAD_REQUEST)
 
     if request.method == 'GET':
-        asistencia_serializer = ConjuntoSerializer(asistencia)
-        return Response(asistencia_serializer.data, status=status.HTTP_200_OK)
+        conjunto_serializer = ConjuntoSerializer(conjunto)
+        return Response(conjunto_serializer.data, status=status.HTTP_200_OK)
 
 #API vista insertar un registro
 @api_view(['POST'])
-def Conjunto_insert(request, name):
-    try:
-        asistencia = ConjuntoModel.objects.get(name = name)
-        if not asistencia.is_active:
-            return Response(data={'message': 'El valor no esta activo'}, status=status.HTTP_400_BAD_REQUEST)
-        
-    except ConjuntoModel.DoesNotExist:
-        return HttpResponse({'El valor no existe'},status=status.HTTP_400_BAD_REQUEST)
-
+def Conjunto_insert(request):
     if request.method == 'POST':
-        asistencia_data = JSONParser().parse(request)
-        asistencia_serializer = ConjuntoSerializer(data=asistencia_data)
-        if asistencia_serializer.is_valid():
-            asistencia_serializer.save()
-            return JsonResponse(asistencia_serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(asistencia_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        conjunto_data = JSONParser().parse(request)
+        conjunto_serializer = ConjuntoSerializer(data=conjunto_data)
+        if conjunto_serializer.is_valid():
+            conjunto_serializer.save()
+            return JsonResponse(conjunto_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return JsonResponse(conjunto_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 #API Vista actualiza
 @api_view(['PUT'])
 def Conjunto_update(request, pk):
     try:
-        asistencia = ConjuntoModel.objects.get(pk = pk)
-        if not asistencia.is_active:
-            return Response(data={'message': 'El valor no esta activo'}, status=status.HTTP_400_BAD_REQUEST)
+        conjunto = ConjuntoModel.objects.get(pk = pk)
+        if not conjunto.is_active:
+            return Response(DATA={'message': 'El valor no esta activo'}, status=status.HTTP_400_BAD_REQUEST)
         
     except ConjuntoModel.DoesNotExist:
     #except ObjectDoesNotExist:
         return HttpResponse({'El valor no existe'},status=status.HTTP_400_BAD_REQUEST)
 
     if request.method == 'PUT':
-        asistencia_data = JSONParser().parse(request)
-        asistencia_serializer = ConjuntoSerializer(asistencia, data=asistencia_data)
-        if asistencia_serializer.is_valid():
-            asistencia_serializer.save()
-            return Response(asistencia_serializer.data, status=status.HTTP_201_CREATED)
-        return Response(asistencia_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        conjunto_data = JSONParser().parse(request)
+        conjunto_serializer = ConjuntoSerializer(conjunto, data=conjunto_data)
+        if conjunto_serializer.is_valid():
+            conjunto_serializer.save()
+            return Response(conjunto_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(conjunto_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 #API Vista actualiza con un patch temporal
-@api_view(['PATCH'])
+@api_view(['GET','PATCH'])
 def Conjunto_update_patch(request, pk):
     try:
-        asistencia = ConjuntoModel.objects.get(pk = pk)
-        if not asistencia.is_active:
+        conjunto = ConjuntoModel.objects.get(pk = pk)
+        if not conjunto.is_active:
             return Response(data={'message': 'El valor no esta activo'}, status=status.HTTP_400_BAD_REQUEST)
         
     except ConjuntoModel.DoesNotExist:
         return HttpResponse({'El valor no existe'},status=status.HTTP_400_BAD_REQUEST)
 
     if request.method == 'PATCH':
-        asistencia_data = JSONParser().parse(request)
-        asistencia_serializer = ConjuntoSerializer(asistencia, data=asistencia_data, partial=True)
-        if asistencia_serializer.is_valid():
-            asistencia_serializer.save()
-            return Response(asistencia_serializer.data)
-        return Response(asistencia_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        conjunto_data = JSONParser().parse(request)
+        conjunto_serializer = ConjuntoSerializer(conjunto, data=conjunto_data, partial=True)
+        if conjunto_serializer.is_valid():
+            conjunto_serializer.save()
+            return Response(conjunto_serializer.data)
+        return Response(conjunto_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # API Vista borrar dato
-@api_view(['DELETE'])
+@api_view(['GET', 'DELETE'])
 def Conjunto_delete(request, pk):
     try:
-        asistencia = ConjuntoModel.objects.get(pk = pk)
-        if not asistencia.is_active:
+        conjunto = ConjuntoModel.objects.get(pk = pk)
+        if not conjunto.is_active:
             return Response(data={'message': 'El valor no esta activo'}, status=status.HTTP_400_BAD_REQUEST)
 
     except ConjuntoModel.DoesNotExist:
@@ -132,5 +101,5 @@ def Conjunto_delete(request, pk):
         return HttpResponse({'El valor no existe'},status=status.HTTP_400_BAD_REQUEST)
 
     if request.method=='DELETE':
-        asistencia.delete()
+        conjunto.delete()
         return Response('El valor fue borrado', status=status.HTTP_204_NO_CONTENT)

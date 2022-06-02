@@ -5,7 +5,7 @@ from django.db import models
 
 class ConjuntoModel(models.Model):
     name = models.CharField('Nombre', max_length = 255, blank = True, null = False)
-    email = models.EmailField('Correo Electrónico',max_length = 255, unique = False)
+    email = models.EmailField('Correo Electrónico',max_length = 255, unique = True)
     telephone = models.CharField('Telefono', max_length = 10, blank = True, null = False)
     logo = models.ImageField('Logo del conjunto', upload_to ='img/conjunto/', max_length = 255, blank = True, null = True)
     Imagen = models.ImageField('Imagen del conjunto', upload_to ='img/conjunto/', max_length = 255, blank = True, null = True)

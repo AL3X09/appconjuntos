@@ -5,3 +5,4 @@ class ConjuntoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConjuntoModel
         fields = '__all__'
+        #fields = ['name', 'laast_name']

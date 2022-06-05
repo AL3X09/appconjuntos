@@ -7,7 +7,7 @@ class PersonModel(models.Model):
     name = models.CharField('Nombres', max_length = 255, blank = True, null = True)
     last_name = models.CharField('Apellidos', max_length = 255, blank = True, null = True)
     email = models.EmailField('Correo Electrónico',max_length = 255, unique = True)
-    telephone = models.CharField('Extencion', max_length = 10, blank = True, null = True)
+    telephone = models.CharField('Télefono', max_length = 10, blank = True, null = True)
     fk_propiedad = models.ForeignKey(PropiedadModel, on_delete=models.CASCADE)
     fk_usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     is_propietario = models.BooleanField(default = False)

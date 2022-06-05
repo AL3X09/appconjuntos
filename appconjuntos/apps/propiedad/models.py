@@ -12,7 +12,7 @@ class PropiedadModel(models.Model):
     c_abuelos = models.IntegerField('Cantidad de abuelos', blank=False, null=False, default=0)
     is_habitada = models.BooleanField('Esta habitada', default = True)
     is_arriendo = models.BooleanField('Esta en arriendo', default = False)
-    fk_conjunto = models.ForeignKey(ConjuntoModel, on_delete=models.CASCADE),
+    fk_conjunto = models.ForeignKey(ConjuntoModel, on_delete=models.CASCADE, default=1)
     is_active = models.BooleanField(default = True)
     #historical = HistoricalRecords()
     

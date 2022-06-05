@@ -45,7 +45,7 @@ class PropiedadDeleteView(generics.DestroyAPIView):
             if propiedad:
                 propiedad.is_active = False
                 propiedad.save()
-                return Response({"mensaje" : "Conjunto eliminado correctamente"},status = status.HTTP_200_OK)
+                return Response({"mensaje" : "Propiedad eliminada correctamente"},status = status.HTTP_200_OK)
             return Response({"Error" : "Valor no existe"},status = status.HTTP_400_BAD_REQUEST)
 
         except ObjectDoesNotExist:

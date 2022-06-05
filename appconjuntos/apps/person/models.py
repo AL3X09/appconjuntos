@@ -3,8 +3,6 @@ from ..propiedad.models import PropiedadModel
 from ..users.models import User
 
 #from simple_history.models import HistoricalRecords
-
-
 class PersonModel(models.Model):
     name = models.CharField('Nombres', max_length = 255, blank = True, null = True)
     last_name = models.CharField('Apellidos', max_length = 255, blank = True, null = True)

@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import PropiedadModel
+from .models import CasilleroModel
 
-class PropiedadSerializer(serializers.ModelSerializer):
+class CasilleroSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PropiedadModel
+        model = CasilleroModel
         fields = '__all__'

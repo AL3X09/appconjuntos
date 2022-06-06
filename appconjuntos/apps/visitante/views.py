@@ -4,18 +4,33 @@ from rest_framework.response import Response
 
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import AuditoriaPedidoModel
-from .serializer import AuditoriaPedidoSerializer
+from .models import VisitanteModel
+from .serializer import VisitanteSerializer
 
-class AuditoriaPedidoListView(generics.ListAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+class VisitanteListView(generics.ListAPIView):
+    serializer_class = VisitanteSerializer
 
-    def get_queryset(self):
-        return AuditoriaPedidoModel.objects.filter(is_active = True)
+    #def get_queryset(self):
+        #return VisitanteModel.objects.filter(is_active = True)
+    
+    def get_queryset(self,fk_propiedad):
+        return self.serializer_class().Meta.model.objects.filter(is_active = True).filter(fk_propiedad = fk_propiedad).first()
+    
+    #sobreescribo el metodo
+    def get(self, request, fk_propiedad=None):
+        try:
+            if self.get_queryset(fk_propiedad):
+                pedido_serializer = self.serializer_class(self.get_queryset(fk_propiedad))
+                return Response(pedido_serializer.data ,status = status.HTTP_200_OK)
+            return Response({"Error" : "No existen datos"},status = status.HTTP_400_BAD_REQUEST)
 
-class AuditoriaPedidoCreateView(generics.CreateAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+class VisitanteCreateView(generics.CreateAPIView):
+    serializer_class = VisitanteSerializer
+   
     def post(self, request):
         try:
             serializer = self.serializer_class(data = request.data)
@@ -27,13 +42,13 @@ class AuditoriaPedidoCreateView(generics.CreateAPIView):
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-class AuditoriaPedidoDetailView(generics.RetrieveAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+class VisitanteDetailView(generics.RetrieveAPIView):
+    serializer_class = VisitanteSerializer
     def get_queryset(self):
         return self.get_serializer().Meta.model.objects.filter(is_active = True)
 
-class AuditoriaPedidoDeleteView(generics.DestroyAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+class VisitanteDeleteView(generics.DestroyAPIView):
+    serializer_class = VisitanteSerializer
 
     def get_queryset(self):
         return self.get_queryset().Meta.model.objects.filter(is_active = True)
@@ -51,8 +66,8 @@ class AuditoriaPedidoDeleteView(generics.DestroyAPIView):
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-class AuditoriaPedidoUpdateView(generics.UpdateAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+class VisitanteUpdateView(generics.UpdateAPIView):
+    serializer_class = VisitanteSerializer
 
     def get_queryset(self,pk):
         return self.serializer_class().Meta.model.objects.filter(is_active = True).filter(id = pk).first()

@@ -8,9 +8,9 @@ class CasilleroModel(models.Model):
     #historical = HistoricalRecords()
     
     class Meta:
-        verbose_name = 'Propiedad'
-        verbose_name_plural = 'Propiedades'
+        verbose_name = 'Casillero'
+        verbose_name_plural = 'Casilleros'
 
     #contructor
     def __str__(self):
-       return f'{self.interior} {self.n_casa_o_apto}'
+       return f'{self.is_vacio}'

@@ -1,21 +1,33 @@
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
-
+#https://es.acervolima.com/como-detectar-el-cierre-del-navegador-o-la-pestana-en-javascript/
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import AuditoriaPedidoModel
-from .serializer import AuditoriaPedidoSerializer
+from .models import VehiculoParqueaderoModel
+from .serializer import VehiculoParqueaderoSerializer
 
-class AuditoriaPedidoListView(generics.ListAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+class VisitanteListView(generics.ListAPIView):
+    serializer_class = VehiculoParqueaderoSerializer
+    
+    def get_queryset(self,fk_propiedad):
+        return self.serializer_class().Meta.model.objects.filter(is_active = True).filter(fk_propiedad = fk_propiedad).first()
+    
+    #sobreescribo el metodo
+    def get(self, request, fk_propiedad=None):
+        try:
+            if self.get_queryset(fk_propiedad):
+                pedido_serializer = self.serializer_class(self.get_queryset(fk_propiedad))
+                return Response(pedido_serializer.data ,status = status.HTTP_200_OK)
+            return Response({"Error" : "No existen datos"},status = status.HTTP_400_BAD_REQUEST)
 
-    def get_queryset(self):
-        return AuditoriaPedidoModel.objects.filter(is_active = True)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-class AuditoriaPedidoCreateView(generics.CreateAPIView):
-    serializer_class = AuditoriaPedidoSerializer
 
+class VisitanteCreateView(generics.CreateAPIView):
+    serializer_class = VehiculoParqueaderoSerializer
+   
     def post(self, request):
         try:
             serializer = self.serializer_class(data = request.data)
@@ -27,13 +39,13 @@ class AuditoriaPedidoCreateView(generics.CreateAPIView):
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-class AuditoriaPedidoDetailView(generics.RetrieveAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+class VisitanteDetailView(generics.RetrieveAPIView):
+    serializer_class = VehiculoParqueaderoSerializer
     def get_queryset(self):
         return self.get_serializer().Meta.model.objects.filter(is_active = True)
 
-class AuditoriaPedidoDeleteView(generics.DestroyAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+class VisitanteDeleteView(generics.DestroyAPIView):
+    serializer_class = VehiculoParqueaderoSerializer
 
     def get_queryset(self):
         return self.get_queryset().Meta.model.objects.filter(is_active = True)
@@ -41,18 +53,18 @@ class AuditoriaPedidoDeleteView(generics.DestroyAPIView):
     #sobreescribo el metodo para borrar de manera logica
     def delete(self, request, pk=None):
         try:
-            pedido = self.get_serializer().Meta.model.objects.filter(id = pk).First
-            if pedido:
-                pedido.is_active = False
-                pedido.save()
+            vehiculo_parq = self.get_serializer().Meta.model.objects.filter(id = pk).First
+            if vehiculo_parq:
+                vehiculo_parq.is_active = False
+                vehiculo_parq.save()
                 return Response({"mensaje" : "Pedido eliminado correctamente"},status = status.HTTP_200_OK)
             return Response({"Error" : "Valor no existe"},status = status.HTTP_400_BAD_REQUEST)
 
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-class AuditoriaPedidoUpdateView(generics.UpdateAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+class VisitanteUpdateView(generics.UpdateAPIView):
+    serializer_class = VehiculoParqueaderoSerializer
 
     def get_queryset(self,pk):
         return self.serializer_class().Meta.model.objects.filter(is_active = True).filter(id = pk).first()
@@ -61,8 +73,8 @@ class AuditoriaPedidoUpdateView(generics.UpdateAPIView):
     def patch(self, request, pk=None):
         try:
             if self.get_queryset(pk):
-                pedido_serializer = self.serializer_class(self.get_queryset(pk))
-                return Response(pedido_serializer.data ,status = status.HTTP_200_OK)
+                vehi_parq_serializer = self.serializer_class(self.get_queryset(pk))
+                return Response(vehi_parq_serializer.data ,status = status.HTTP_200_OK)
             return Response({"Error" : "Pedido no existe"},status = status.HTTP_400_BAD_REQUEST)
 
         except ObjectDoesNotExist:
@@ -72,10 +84,10 @@ class AuditoriaPedidoUpdateView(generics.UpdateAPIView):
     def put(self, request, pk=None):
         try:
             if self.get_queryset(pk):
-                pedido_serializer = self.serializer_class(self.get_queryset(pk), data = request.data)
-                if pedido_serializer.is_valid():
-                    pedido_serializer.save()
-                    return Response(pedido_serializer.data ,status = status.HTTP_200_OK)
+                vehi_parq_serializer = self.serializer_class(self.get_queryset(pk), data = request.data)
+                if vehi_parq_serializer.is_valid():
+                    vehi_parq_serializer.save()
+                    return Response(vehi_parq_serializer.data ,status = status.HTTP_200_OK)
             return Response({"Error" : "Pedido no existe"},status = status.HTTP_400_BAD_REQUEST)
 
         except ObjectDoesNotExist:

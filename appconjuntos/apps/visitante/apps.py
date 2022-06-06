@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CasilleroConfig(AppConfig):
+class VisitanteConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.casillero'
+    name = 'apps.visitante'

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CasilleroConfig(AppConfig):
+class VehiculoParqueaderoConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.casillero'
+    name = 'apps.vehiculo_parqueadero'

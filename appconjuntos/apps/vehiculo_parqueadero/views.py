@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import VehiculoParqueaderoModel
 from .serializer import VehiculoParqueaderoSerializer
 
-class VisitanteListView(generics.ListAPIView):
+class VehiculoParqueaderoListView(generics.ListAPIView):
     serializer_class = VehiculoParqueaderoSerializer
     
     def get_queryset(self,fk_propiedad):
@@ -25,7 +25,7 @@ class VisitanteListView(generics.ListAPIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class VisitanteCreateView(generics.CreateAPIView):
+class VehiculoParqueaderoCreateView(generics.CreateAPIView):
     serializer_class = VehiculoParqueaderoSerializer
    
     def post(self, request):
@@ -33,18 +33,18 @@ class VisitanteCreateView(generics.CreateAPIView):
             serializer = self.serializer_class(data = request.data)
             if serializer.is_valid():
                 serializer.save()
-                return Response({"mensaje" : "Pedido guradado correctamente"},status = status.HTTP_201_CREATED)
+                return Response({"mensaje" : "Parqueo almacenado correctamente"},status = status.HTTP_201_CREATED)
             return Response(serializer.errors,status = status.HTTP_400_BAD_REQUEST)
         
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-class VisitanteDetailView(generics.RetrieveAPIView):
+class VehiculoParqueaderoDetailView(generics.RetrieveAPIView):
     serializer_class = VehiculoParqueaderoSerializer
     def get_queryset(self):
         return self.get_serializer().Meta.model.objects.filter(is_active = True)
 
-class VisitanteDeleteView(generics.DestroyAPIView):
+class VehiculoParqueaderoDeleteView(generics.DestroyAPIView):
     serializer_class = VehiculoParqueaderoSerializer
 
     def get_queryset(self):
@@ -57,13 +57,13 @@ class VisitanteDeleteView(generics.DestroyAPIView):
             if vehiculo_parq:
                 vehiculo_parq.is_active = False
                 vehiculo_parq.save()
-                return Response({"mensaje" : "Pedido eliminado correctamente"},status = status.HTTP_200_OK)
+                return Response({"mensaje" : "Parqueo eliminado correctamente"},status = status.HTTP_200_OK)
             return Response({"Error" : "Valor no existe"},status = status.HTTP_400_BAD_REQUEST)
 
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-class VisitanteUpdateView(generics.UpdateAPIView):
+class VehiculoParqueaderoUpdateView(generics.UpdateAPIView):
     serializer_class = VehiculoParqueaderoSerializer
 
     def get_queryset(self,pk):
@@ -75,7 +75,7 @@ class VisitanteUpdateView(generics.UpdateAPIView):
             if self.get_queryset(pk):
                 vehi_parq_serializer = self.serializer_class(self.get_queryset(pk))
                 return Response(vehi_parq_serializer.data ,status = status.HTTP_200_OK)
-            return Response({"Error" : "Pedido no existe"},status = status.HTTP_400_BAD_REQUEST)
+            return Response({"Error" : "Parqueo no existe"},status = status.HTTP_400_BAD_REQUEST)
 
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -88,7 +88,7 @@ class VisitanteUpdateView(generics.UpdateAPIView):
                 if vehi_parq_serializer.is_valid():
                     vehi_parq_serializer.save()
                     return Response(vehi_parq_serializer.data ,status = status.HTTP_200_OK)
-            return Response({"Error" : "Pedido no existe"},status = status.HTTP_400_BAD_REQUEST)
+            return Response({"Error" : "Parqueo no existe"},status = status.HTTP_400_BAD_REQUEST)
 
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)

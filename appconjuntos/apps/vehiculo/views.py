@@ -4,17 +4,17 @@ from rest_framework.response import Response
 
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import AuditoriaPedidoModel
-from .serializer import AuditoriaPedidoSerializer
+from .models import VehiculoModel
+from .serializer import Vehiculoerializer
 
-class AuditoriaPedidoListView(generics.ListAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+class VehiculoListView(generics.ListAPIView):
+    serializer_class = Vehiculoerializer
 
     def get_queryset(self):
-        return AuditoriaPedidoModel.objects.filter(is_active = True)
+        return VehiculoModel.objects.filter(is_active = True)
 
-class AuditoriaPedidoCreateView(generics.CreateAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+class VehiculoCreateView(generics.CreateAPIView):
+    serializer_class = Vehiculoerializer
 
     def post(self, request):
         try:
@@ -27,13 +27,13 @@ class AuditoriaPedidoCreateView(generics.CreateAPIView):
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-class AuditoriaPedidoDetailView(generics.RetrieveAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+class VehiculoDetailView(generics.RetrieveAPIView):
+    serializer_class = Vehiculoerializer
     def get_queryset(self):
         return self.get_serializer().Meta.model.objects.filter(is_active = True)
 
-class AuditoriaPedidoDeleteView(generics.DestroyAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+class VehiculoDeleteView(generics.DestroyAPIView):
+    serializer_class = Vehiculoerializer
 
     def get_queryset(self):
         return self.get_queryset().Meta.model.objects.filter(is_active = True)
@@ -51,8 +51,8 @@ class AuditoriaPedidoDeleteView(generics.DestroyAPIView):
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-class AuditoriaPedidoUpdateView(generics.UpdateAPIView):
-    serializer_class = AuditoriaPedidoSerializer
+class VehiculoUpdateView(generics.UpdateAPIView):
+    serializer_class = Vehiculoerializer
 
     def get_queryset(self,pk):
         return self.serializer_class().Meta.model.objects.filter(is_active = True).filter(id = pk).first()

@@ -122,7 +122,8 @@
 
 <script>
 import { DropDown, Navbar, NavLink } from '@/components';
-import { Popover } from 'element-ui';
+import { ElPopover } from "element-plus";
+//import { Popover } from 'element-ui';
 export default {
   name: 'main-navbar',
   props: {
@@ -133,7 +134,8 @@ export default {
     DropDown,
     Navbar,
     NavLink,
-    [Popover.name]: Popover
+    //ElPopover
+    [ElPopover.name]: Popover
   }
 };
 </script>

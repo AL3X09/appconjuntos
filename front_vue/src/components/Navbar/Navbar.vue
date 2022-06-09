@@ -31,7 +31,7 @@
   </nav>
 </template>
 <script>
-import NavbarToggleButton from './NavbarToggleButton';
+import NavbarToggleButton from './NavbarToggleButton.vue';
 let resizeTimeout;
 function resizeThrottler(actualResizeHandler) {
   // ignore resize events as long as an actualResizeHandler execution is in the queue

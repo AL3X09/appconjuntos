@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Index from '../views/Index.vue';
 import HomeView from '../views/HomeView.vue'
 import MainNavbar from '../layout/MainNavbar.vue';
 import MainFooter from '../layout/MainFooter.vue';
@@ -16,7 +17,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: HomeView
     },

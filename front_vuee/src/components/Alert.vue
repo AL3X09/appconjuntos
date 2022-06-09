@@ -9,7 +9,8 @@
             type="button"
             class="close"
             aria-label="Close"
-            @click="dismissAlert">
+            @click="dismissAlert"
+          >
             <span aria-hidden="true">
               <i class="now-ui-icons ui-1_simple-remove"></i>
             </span>
@@ -21,7 +22,6 @@
 </template>
 <script>
 import { FadeTransition } from 'vue2-transitions';
-//import { FadeTransition } from 'vue3-sfc-transitions';
 
 export default {
   name: 'alert',

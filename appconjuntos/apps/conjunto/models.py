@@ -6,8 +6,10 @@ class ConjuntoModel(models.Model):
     email = models.EmailField('Correo Electrónico',max_length = 255, unique = True)
     telephone = models.CharField('Telefono', max_length = 10, blank = True, null = False)
     logo = models.ImageField('Logo del conjunto', upload_to ='img/conjunto/', max_length = 255, blank = True, null = True)
-    Imagen = models.ImageField('Imagen del conjunto', upload_to ='img/conjunto/', max_length = 255, blank = True, null = True)
+    imagen = models.ImageField('Imagen del conjunto', upload_to ='img/conjunto/', max_length = 255, blank = True, null = True)
     adress = models.CharField('Dirección', max_length = 255, blank = True, null = False)
+    about = models.CharField('Acerca de nosotros', max_length = 255, blank = True, null = False)
+    eslogan = models.CharField('Eslogan', max_length = 255, blank = True, null = False)
     is_active = models.BooleanField(default = True)
     #historical = HistoricalRecords()
     

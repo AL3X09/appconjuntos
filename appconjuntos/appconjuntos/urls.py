@@ -1,3 +1,4 @@
+#from settings import PROJECT_ROOT
 """appconjuntos URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,7 +16,8 @@ Including another URLconf
 """
 from xml.etree.ElementInclude import include
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,4 +25,5 @@ urlpatterns = [
     path('propiedad/', include('apps.propiedad.urls')),
     path('person/', include('apps.person.urls')),
     path('user/', include('apps.users.urls')),
+    re_path(r'^img/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,}),
 ]

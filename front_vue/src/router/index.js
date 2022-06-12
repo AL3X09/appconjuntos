@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Index from '../views/Index.vue';
-import HomeView from '../views/HomeView.vue'
-import MainNavbar from '../layout/MainNavbar.vue';
-import MainFooter from '../layout/MainFooter.vue';
+import IndexView from '../views/IndexView.vue'
+import LoginView from '../views/LoginView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,24 +8,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'index',
-      components: { default: Index, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'black' }
-      }
+      component: IndexView,
+      /*children: [
+        { path: "", name: "Index", component: () => import("./views/Home") },
+        { path: "foo", name: "Footer", component: () => import("./views/Foo") },
+        { path: "bar", name: "navbar", component: () => import("./views/Bar") }
+      ]*/
     },
     {
-      path: '/home',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      path: '/login',
+      name: 'login',
+      component: LoginView,
     }
   ]
 })

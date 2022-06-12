@@ -2,19 +2,18 @@
   "name": "front_vue",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview --port 4173",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
     "test:unit": "vitest --environment jsdom",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "element-plus": "^2.2.5",
-    "nouislider-vue": "^0.0.6",
-    "pinia": "^2.0.14",
+    "axios": "^0.27.2",
+    "bootstrap-vue-3": "^0.1.13",
     "vue": "^3.2.36",
-    "vue-router": "^4.0.15",
-    "vue2-transitions": "^0.3.0"
+    "vue-axios": "^3.4.1",
+    "vue-router": "^4.0.15"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

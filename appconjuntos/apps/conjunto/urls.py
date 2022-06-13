@@ -4,6 +4,7 @@ from .views import *
 urlpatterns = [
     path('api/listar/', ConjuntoListView.as_view(), name = 'listar_all_conjunto'),
     path('api/crear/', ConjuntoCreateView.as_view(), name = 'crear_conjunto'),
+    path('api/nombre/<int:pk>/', ConjuntoNameView.as_view(), name = 'listar_nombre'),
     path('api/detalle/<int:pk>/', ConjuntoDetailView.as_view(), name = 'detalle_conjunto'),
     path('api/actualiza/<int:pk>/', ConjuntoUpdateView.as_view(), name = 'update_conjunto'),
     path('api/borrar/<int:pk>/', ConjuntoDeleteView.as_view(), name = 'borrar_conjunto'),

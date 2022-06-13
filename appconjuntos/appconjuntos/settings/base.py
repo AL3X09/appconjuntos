@@ -111,6 +111,7 @@ USE_TZ = True
 #cors
 CORS_ALLOWED_ORIGINS = [
     "http://192.168.0.2:3000",
+    "http://localhost:3000",
 ]
 #metdo de autenticación
 AUTH_USER_MODEL = 'users.User'
@@ -125,5 +126,4 @@ STATIC_URL = 'static/'
 
 #DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'D:/pythonAPPS/appconjuntos/front_vue/public/img/')
-print(MEDIA_ROOT)
 MEDIA_URL = 'D:/pythonAPPS/appconjuntos/front_vue/public/img/'

@@ -3,10 +3,6 @@ import os
 from pathlib import Path
 
 def img_directori(instance, filename):
-    #print("WORKING DIRECTORY: " + os.chdir('front_vue/public/'))
-    #file_path = Path(r"..\front_vue\public\img\conjunto\")
-    #file_path = os.chdir("D:\pythonAPPS\appconjuntos\front_vue\public")
-    #f = open(file_path)
     return "D:\pythonAPPS\\appconjuntos\\front_vue\public\img\{0}".format(filename)
 
 #from simple_history.models import HistoricalRecords

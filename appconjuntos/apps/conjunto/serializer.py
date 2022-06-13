@@ -6,7 +6,13 @@ class ConjuntoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConjuntoModel
         fields = '__all__'
-        #fields = ['name', 'laast_name']
+        #fields = ('Nombre','email','telephone', 'logo', ('imagen'[69:100]), 'adress', 'about', 'eslogan', 'is_active') not funciona
+
+class ConjuntoNombreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConjuntoModel
+        fields = ('id','name','logo',)
+
 
 """class TestConjuntoSerializer (serializers.Serializer):
     name = serializers.CharField( max_length = 255)

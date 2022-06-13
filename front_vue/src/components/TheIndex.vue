@@ -1,16 +1,18 @@
 <template >
-  <div v-if="getResult">
-  <div v-for="result in getResult" :key="result.data.id">
+  <div v-if="vgetDatos">
+  <div v-for="resultb in vgetDatos" :key="resultb.data.id">
+     {{ key }}: "/public/img/ + ${ resultb.data.imagen.slice(70) }"
   <!-- Masthead-->
         <header class="">
             <div>
               <b-card
                 overlay
-                img-src={{result.data.imagen}}
+                img-src = "/public/img/ + '{{resultb.data.imagen.slice(70)}}'"
                 img-alt="Card Image"
+                text-variant="white"
               >
                 <b-card-text>
-                  {{result.data.eslogan}}
+                  {{resultb.data.eslogan}}
                 </b-card-text>
               </b-card>
             </div>
@@ -93,7 +95,7 @@
                 </div>
                 <!-- About Section Content-->
                 <div class="row">
-                    <div class="col-sm12"><p class="lead">{{result.data.about}}</p></div>
+                    <div class="col-sm12"><p class="lead">{{resultb.data.about}}</p></div>
                 </div>
                 
         </section>
@@ -114,9 +116,22 @@
           </b-row>
           <b-row>
             <b-col sm="12" lg="6">
-              <p class="lead">{{result.data.adress}}</p>
-              <p class="lead">{{result.data.email}}</p>
-              <p class="lead">{{result.data.telephone}}</p>
+              <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+                <b-row no-gutters>
+                  <b-col md="6">
+                    <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
+                  </b-col>
+                  <b-col md="6">
+                    <b-card-body title="">
+                      <b-card-text>
+                        <p class="lead">{{resultb.data.adress}}</p>
+                        <p class="lead">{{resultb.data.email}}</p>
+                        <p class="lead">{{resultb.data.telephone}}</p>
+                      </b-card-text>
+                    </b-card-body>
+                  </b-col>
+                </b-row>
+              </b-card>
             </b-col>
               <b-col sm="12" lg="6">
                 <form id="contactForm" data-sb-form-api-token="API_TOKEN">
@@ -188,29 +203,23 @@
 </template>
 
 <script>
-//https://www.positronx.io/handle-ajax-requests-in-vue-js-with-axios-fetch-api/
-//https://www.koderhq.com/tutorial/vue/http-axios/
-//https://www.bezkoder.com/vue-axios-example/
 import http from "../http-common";
-//import { ref, onMounted  } from 'vue'
 
 export default {
   data() {
     return {
-      respon: [],
-      dataconjunto: [],
-      getResult: [],
+      vgetDatos: [],
+      noticias: [],
     }
   },
   mounted() {
-    this.getAllData();
-    //console.log(this.getResult);
+    this.getDatos();
   },
   methods: {
     fortmatResponse(res) {
       return JSON.stringify(res, null, 2);
     },
-    async getAllData() {
+    async getDatos() {
       try {
         const res = await http.get("conjunto/api/detalle/1/");
         const result = {
@@ -218,19 +227,32 @@ export default {
           //headers: res.headers,
           data: res.data,
         };
-        this.getResult.push(result);
+        this.vgetDatos.push(result);
       } catch (err) {
-        this.getResult.push(this.fortmatResponse(err.response?.data) || err);
-        //this.getResult = this.fortmatResponse(err.response?.data) || err;
+        this.vgetDatos.push(this.fortmatResponse(err.response?.data) || err);
+      }
+    },
+    async getNoticias() {
+      try {
+        const resn = await http.get("noticias/api/listar/");
+        const resultn = {
+          status: resn.status + "-" + res.statusText,
+          //headers: res.headers,
+          data: resn.data,
+        };
+        this.noticias.push(resultn);
+      } catch (err) {
+        this.noticias.push(this.fortmatResponse(err.response?.data) || err);
       }
     },
     clearGetOutput() {
-      this.getResult = null;
+      this.vgetDatos = null;
+      this.noticias = null;
     },
   }
 };
-
 </script>
+
 <style>
 .row {
   --bs-gutter-x: -1.5rem !important;

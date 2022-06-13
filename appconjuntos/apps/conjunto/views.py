@@ -13,7 +13,9 @@ from django.core.exceptions import ObjectDoesNotExist
 #from rest_framework.decorators import api_view
 
 from .models import ConjuntoModel
-from .serializer import ConjuntoSerializer
+from .serializer import ConjuntoSerializer , ConjuntoNombreSerializer
+
+
 
 class ConjuntoListView(generics.ListAPIView):
     serializer_class = ConjuntoSerializer
@@ -34,6 +36,11 @@ class ConjuntoCreateView(generics.CreateAPIView):
         
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class ConjuntoNameView(generics.ListAPIView):
+    serializer_class = ConjuntoNombreSerializer
+    def get_queryset(self):
+        return ConjuntoModel.objects.filter(is_active = True)
 
 class ConjuntoDetailView(generics.RetrieveAPIView):
     serializer_class = ConjuntoSerializer

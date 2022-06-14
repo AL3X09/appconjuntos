@@ -4,6 +4,7 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_FILES = Path('../front_vue/public').resolve()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-pg-s9)dutz*m65ie=#lfk)*b*$qcf*b_hj#(xds(%_gly-l7c@'
@@ -125,5 +126,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 #DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'D:/pythonAPPS/appconjuntos/front_vue/public/img/')
-MEDIA_URL = 'D:/pythonAPPS/appconjuntos/front_vue/public/img/'
+MEDIA_ROOT = os.path.join(BASE_FILES, 'img')
+
+MEDIA_URL = '/img/'

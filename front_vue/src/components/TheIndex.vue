@@ -1,13 +1,12 @@
 <template >
   <div v-if="vgetDatos">
   <div v-for="resultb in vgetDatos" :key="resultb.data.id">
-     {{ key }}: "/public/img/ + ${ resultb.data.imagen.slice(70) }"
   <!-- Masthead-->
         <header class="">
             <div>
               <b-card
                 overlay
-                img-src = "/public/img/ + '{{resultb.data.imagen.slice(70)}}'"
+                img-src = {{resultb.data.imagen}}
                 img-alt="Card Image"
                 text-variant="white"
               >
@@ -119,7 +118,7 @@
               <b-card no-body class="overflow-hidden" style="max-width: 540px;">
                 <b-row no-gutters>
                   <b-col md="6">
-                    <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
+                    <b-card-img src="{{resultb.data.imagen}}" alt="Image" class="rounded-0"></b-card-img>
                   </b-col>
                   <b-col md="6">
                     <b-card-body title="">

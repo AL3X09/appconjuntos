@@ -7,8 +7,8 @@
         <div id="nav">
           <nav class="navbar navbar-expand bg-info text-uppercase text-white fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#"><b-img src= "/public/img/ + '{{resulth.data.logo.slice(70)}}'" fluid alt="Fluid image"></b-img></a>
-                    <RouterLink to="/" class="navbar-brand text-white"> {{resulth.data.name}} b</RouterLink>
+                <a class="navbar-brand" href="#"><b-img :src="logo_img" fluid alt="Fluid image" id="logo"></b-img></a>
+                    <RouterLink to="/" class="navbar-brand text-white">{{resulth.data.name}}</RouterLink>
                     <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="bi bi-list"></i>
                     </button>
@@ -42,6 +42,7 @@ export default {
   data() {
     return {
       vgetHead: [],
+      logo_img: null,
     }
   },
   mounted() {
@@ -59,7 +60,8 @@ export default {
           //headers: res.headers,
           data: res.data[0],
         };
-        this.vgetHead.push(result);
+        this.vgetHead.push(result),
+        this.logo_img= result.data.logo
       } catch (err) {
         this.vgetHead.push(this.fortmatResponse(err.response?.data) || err);
         //this.getResult = this.fortmatResponse(err.response?.data) || err;
@@ -82,6 +84,11 @@ export default {
 #nav a {
   font-weight: bold;
   color: #2c3e50;
+}
+
+#logo {
+  width: 25px;
+  height: 25px;
 }
 
 </style>

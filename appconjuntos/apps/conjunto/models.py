@@ -1,9 +1,11 @@
 from django.db import models
+from django.conf import settings
 import os
 from pathlib import Path
 
 def img_directori(instance, filename):
-    return "D:\pythonAPPS\\appconjuntos\\front_vue\public\img\{0}".format(filename)
+    #return "D:\pythonAPPS\\appconjuntos\\front_vue\public\img\{0}".format(filename)
+    return settings.MEDIA_ROOT + "\conjunto\{0}".format(filename)
 
 #from simple_history.models import HistoricalRecords
 class ConjuntoModel(models.Model):

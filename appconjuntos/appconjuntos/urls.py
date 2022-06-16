@@ -26,6 +26,7 @@ urlpatterns = [
     path('propiedad/', include('apps.propiedad.urls')),
     path('person/', include('apps.person.urls')),
     path('user/', include('apps.users.urls')),
+    path('noticia/', include('apps.noticia.urls')),
     re_path(r'^img/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,})
 ] 
 #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

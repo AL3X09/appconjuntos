@@ -16,6 +16,12 @@ class NoticiaListView(generics.ListAPIView):
     def get_queryset(self):
         return NoticiaModel.objects.filter(is_active = True)
 
+class NoticiaInactivaListView(generics.ListAPIView):
+    serializer_class = NoticiaSerializer
+
+    def get_queryset(self):
+        return NoticiaModel.objects.filter(is_active = False)
+
 class NoticiaCreateView(generics.CreateAPIView):
     serializer_class = NoticiaSerializer
 

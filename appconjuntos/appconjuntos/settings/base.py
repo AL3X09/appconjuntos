@@ -32,6 +32,7 @@ LOCAL_APPS = [
     'apps.conjunto',
     'apps.propiedad',
     'apps.person',
+    'apps.noticia',
     'apps.casillero',
     'apps.auditoria_pedido',
 ]

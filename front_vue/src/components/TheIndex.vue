@@ -4,16 +4,7 @@
   <!-- Masthead-->
         <header class="">
             <div>
-              <b-card
-                overlay
-                img-src = {{resultb.data.imagen}}
-                img-alt="Card Image"
-                text-variant="white"
-              >
-                <b-card-text>
-                  {{resultb.data.eslogan}}
-                </b-card-text>
-              </b-card>
+              
             </div>
         </header>
         <!-- Section Noticias-->
@@ -24,6 +15,7 @@
           </b-row>
           <b-row>
             <b-col>
+              <noticias />
             <div>
               <b-card
                 title="Card Title"
@@ -203,6 +195,7 @@
 
 <script>
 import http from "../http-common";
+import noticias from './CarouselNoticias.vue';
 
 export default {
   data() {

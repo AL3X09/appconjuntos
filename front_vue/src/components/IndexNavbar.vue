@@ -7,7 +7,7 @@
         <div id="nav">
           <nav class="navbar navbar-expand bg-info text-uppercase text-white fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#"><b-img :src="logo_img" fluid alt="Fluid image" id="logo"></b-img></a>
+                <a class="navbar-brand" href="#"><b-img :src=resulth.data.logo fluid alt="Fluid image" id="logo"></b-img></a>
                     <RouterLink to="/" class="navbar-brand text-white">{{resulth.data.name}}</RouterLink>
                     <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="bi bi-list"></i>

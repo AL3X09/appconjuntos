@@ -1,78 +1,85 @@
 <template>
-  <div>
-    <b-carousel
-      id="carousel-1"
-      v-model="slide"
-      :interval="4000"
-      controls
-      indicators
-      background="#ababab"
-      img-width="1024"
-      img-height="480"
-      style="text-shadow: 1px 1px 2px #333;"
-      @sliding-start="onSlideStart"
-      @sliding-end="onSlideEnd"
-    >
-      <!-- Text slides with image -->
-      <b-carousel-slide
-        caption="First slide"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-        img-src="https://picsum.photos/1024/480/?image=52"
-      ></b-carousel-slide>
 
-      <!-- Slides with custom text -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-        <h1>Hello world!</h1>
-      </b-carousel-slide>
+  <li v-for="item in anoticias">
+    <Carousel :autoplay="2000" :itemsToShow="3.95" :wrapAround="true">
+      <Slide v-for="sliden in item.data" :key="sliden">
+        <div class="carousel__item">
+          <img :src="sliden.imagen" />
+          {{ sliden.imagen }}
+        </div>
+      </Slide>
 
-      <!-- Slides with image only -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
-
-      <!-- Slides with img slot -->
-      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-      <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid w-100"
-            width="1024"
-            height="480"
-            src="https://picsum.photos/1024/480/?image=55"
-            alt="image slot"
-          >
-        </template>
-      </b-carousel-slide>
-
-      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
-          a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
-        </p>
-      </b-carousel-slide>
-    </b-carousel>
-
-    <p class="mt-4">
-      Slide #: {{ slide }}<br>
-      Sliding: {{ sliding }}
-    </p>
-  </div>
+      <template #addons>
+        <Pagination />
+      </template>
+    </Carousel>
+  </li>
+ 
 </template>
 
 <script>
-  export default {
-    data() {
+import { defineComponent } from 'vue'
+import { Carousel, Pagination, Slide } from 'vue3-carousel';
+import http from "../http-common";
+
+import 'vue3-carousel/dist/carousel.css';
+
+export default {
+  data() {
       return {
-        slide: 0,
-        sliding: null
+        anoticias: [],
       }
     },
+    mounted() {
+      this.getHead();
+    },
     methods: {
-      onSlideStart(slide) {
-        this.sliding = true
+      fortmatResponse(res) {
+        return JSON.stringify(res, null, 2);
       },
-      onSlideEnd(slide) {
-        this.sliding = false
+      async getHead() {
+        try {
+        const res = await http.get("noticia/api/listar/");
+        const result = {
+          data: res.data,
+        };
+        this.anoticias.push(result);
+      } catch (err) {
+        this.anoticias.push(this.fortmatResponse(err.response?.data) || err);
       }
-    }
-  }
+      },
+      clearGetOutput() {
+        this.vgetHead = null;
+      },
+      /*getImage(imagePath) {
+        return require(imagePath);
+      }*/
+    },
+    components: {
+      Carousel,
+      Slide,
+      Pagination,
+    },
+};
 </script>
+
+<style scoped>
+.carousel__slide > .carousel__item {
+  transform: scale(1);
+  opacity: 0.5;
+  transition: 0.5s;
+}
+.carousel__slide--visible > .carousel__item {
+  opacity: 1;
+  transform: rotateY(0);
+}
+.carousel__slide--next > .carousel__item {
+  transform: scale(0.9) translate(-10px);
+}
+.carousel__slide--prev > .carousel__item {
+  transform: scale(0.9) translate(10px);
+}
+.carousel__slide--active > .carousel__item {
+  transform: scale(1.1);
+}
+</style>

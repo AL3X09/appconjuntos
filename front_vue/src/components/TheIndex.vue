@@ -15,7 +15,11 @@
           </b-row>
           <b-row>
             <b-col>
-              <noticias />
+              <cnoticias></cnoticias>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
             <div>
               <b-card
                 title="Card Title"
@@ -195,7 +199,7 @@
 
 <script>
 import http from "../http-common";
-import noticias from './CarouselNoticias.vue';
+import cnoticias from './CarouselNoticias.vue';
 
 export default {
   data() {
@@ -241,7 +245,10 @@ export default {
       this.vgetDatos = null;
       this.noticias = null;
     },
-  }
+  },
+  components: {
+    cnoticias
+  },
 };
 </script>
 

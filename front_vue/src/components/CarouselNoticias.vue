@@ -1,11 +1,22 @@
 <template>
 
   <li v-for="item in anoticias">
-    <Carousel :autoplay="2000" :itemsToShow="3.95" :wrapAround="true">
+    <Carousel :autoplay="2000"  :itemsToShow="4.0" :wrapAround="true">
       <Slide v-for="sliden in item.data" :key="sliden">
         <div class="carousel__item">
-          <img :src="sliden.imagen" />
-          {{ sliden.imagen }}
+
+          <b-card no-body class="overflow-hidden">
+                <b-card-img :src="sliden.imagen" alt="Image" class="rounded-0"></b-card-img>
+                <b-card-body>
+                  <b-card-title>{{ sliden.titulo }}</b-card-title>
+                  <b-card-sub-title class="mb-2">{{ sliden.subtitulo }}</b-card-sub-title>
+                  <b-card-text>
+                    {{ sliden.cuerpo }}
+                  </b-card-text>
+                </b-card-body>
+                <b-button href="#" variant="primary">Seguir Leyendo</b-button>
+          </b-card>
+
         </div>
       </Slide>
 
@@ -51,9 +62,6 @@ export default {
       clearGetOutput() {
         this.vgetHead = null;
       },
-      /*getImage(imagePath) {
-        return require(imagePath);
-      }*/
     },
     components: {
       Carousel,
@@ -64,6 +72,7 @@ export default {
 </script>
 
 <style scoped>
+
 .carousel__slide > .carousel__item {
   transform: scale(1);
   opacity: 0.5;
@@ -74,12 +83,14 @@ export default {
   transform: rotateY(0);
 }
 .carousel__slide--next > .carousel__item {
-  transform: scale(0.9) translate(-10px);
+  /*transform: scale(0.9) translate(-10px);*/
+  transform: scale(0.9) translate(-5px);
 }
 .carousel__slide--prev > .carousel__item {
-  transform: scale(0.9) translate(10px);
+  transform: scale(0.9) translate(5px);
 }
 .carousel__slide--active > .carousel__item {
   transform: scale(1.1);
 }
+
 </style>

@@ -4,7 +4,15 @@
   <!-- Masthead-->
         <header class="">
             <div>
+              <b-card
+              overlay
               
+              >
+              <b-card-img :src="resultb.data.imagen" alt="Image" class="rounded-0"></b-card-img>
+                <b-card-text>
+                  Some quick example text to build on the card and make up the bulk of the card's content.
+                </b-card-text>
+              </b-card>
             </div>
         </header>
         <!-- Section Noticias-->
@@ -17,29 +25,6 @@
             <b-col>
               <cnoticias></cnoticias>
             </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-            <div>
-              <b-card
-                title="Card Title"
-                img-src="https://picsum.photos/600/300/?image=25"
-                img-alt="Image"
-                img-top
-                tag="article"
-                style="max-width: 20rem;"
-                class="sm-12"
-              >
-                <b-card-text>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
-                </b-card-text>
-                <b-button href="#" variant="primary">Go somewhere</b-button>
-              </b-card>
-            </div>  
-            </b-col>
-            <b-col>2 of 3</b-col>
-            <b-col>3 of 3</b-col>
-            <b-col>4 of 4</b-col>
           </b-row>
         
         <!-- Section Sección avisos ventas-->
@@ -114,7 +99,7 @@
               <b-card no-body class="overflow-hidden" style="max-width: 540px;">
                 <b-row no-gutters>
                   <b-col md="6">
-                    <b-card-img src="{{resultb.data.imagen}}" alt="Image" class="rounded-0"></b-card-img>
+                    <b-card-img :src="resultb.data.imagen" alt="Image" class="rounded-0" width="100%" height="100%"></b-card-img>
                   </b-col>
                   <b-col md="6">
                     <b-card-body title="">
@@ -226,19 +211,6 @@ export default {
         this.vgetDatos.push(result);
       } catch (err) {
         this.vgetDatos.push(this.fortmatResponse(err.response?.data) || err);
-      }
-    },
-    async getNoticias() {
-      try {
-        const resn = await http.get("noticias/api/listar/");
-        const resultn = {
-          status: resn.status + "-" + res.statusText,
-          //headers: res.headers,
-          data: resn.data,
-        };
-        this.noticias.push(resultn);
-      } catch (err) {
-        this.noticias.push(this.fortmatResponse(err.response?.data) || err);
       }
     },
     clearGetOutput() {

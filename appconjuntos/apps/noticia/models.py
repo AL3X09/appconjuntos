@@ -11,6 +11,7 @@ class NoticiaModel(models.Model):
     subtitulo = models.CharField('Subtitulo', max_length = 255, null = False, unique = False)
     cuerpo = models.CharField('Cuerpo', max_length = 255, null = False, unique = False)
     imagen = models.ImageField('Imagen de la noticia', upload_to = img_directori, max_length = 255, blank = True, null = True)
+    url = models.CharField('Url de la noticia', max_length = 400, null = False, unique = False, default= "")
     is_active = models.BooleanField(default = True)
     #historical = HistoricalRecords()
     

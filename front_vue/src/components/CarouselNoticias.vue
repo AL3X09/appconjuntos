@@ -93,4 +93,8 @@ export default {
   transform: scale(1.1);
 }
 
+li {
+    list-style-type: none;
+}
+
 </style>

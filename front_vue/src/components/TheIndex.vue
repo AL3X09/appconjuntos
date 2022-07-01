@@ -4,15 +4,12 @@
   <!-- Masthead-->
         <header class="">
             <div>
-              <b-card
-              overlay
-              
-              >
-              <b-card-img :src="resultb.data.imagen" alt="Image" class="rounded-0"></b-card-img>
-                <b-card-text>
-                  Some quick example text to build on the card and make up the bulk of the card's content.
-                </b-card-text>
-              </b-card>
+              <div class="card text-white">
+              <img :src="resultb.data.imagen" alt="Card Image" class="card-img"/>
+                <div class="card-body card-img-overlay">
+                  
+                </div>
+              </div>
             </div>
         </header>
         <!-- Section Noticias-->
@@ -35,6 +32,8 @@
             </b-col>
           </b-row>
           <b-row>
+              <cpropiedades></cpropiedades>
+
             <b-col>1 of 3</b-col>
             <b-col>2 of 3</b-col>
             <b-col>3 of 3</b-col>
@@ -185,12 +184,12 @@
 <script>
 import http from "../http-common";
 import cnoticias from './CarouselNoticias.vue';
+import cpropiedades from './CarouselPropiedades.vue';
 
 export default {
   data() {
     return {
       vgetDatos: [],
-      noticias: [],
     }
   },
   mounted() {
@@ -219,7 +218,8 @@ export default {
     },
   },
   components: {
-    cnoticias
+    cnoticias,
+    cpropiedades,
   },
 };
 </script>

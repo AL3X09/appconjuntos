@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 import os
+from  django.utils import timezone
+
 
 def img_directori(instance, filename):
     return settings.MEDIA_ROOT + "\\noticia\{0}".format(filename)
@@ -13,6 +15,8 @@ class NoticiaModel(models.Model):
     imagen = models.ImageField('Imagen de la noticia', upload_to = img_directori, max_length = 255, blank = True, null = True)
     url = models.CharField('Url de la noticia', max_length = 400, null = False, unique = False, default= "")
     is_active = models.BooleanField(default = True)
+    fecha = models.DateTimeField('Fecha', null=False, default=timezone.now)
+
     #historical = HistoricalRecords()
     
     class Meta:

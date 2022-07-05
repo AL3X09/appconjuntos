@@ -25,19 +25,15 @@
           </b-row>
         
         <!-- Section Sección avisos ventas-->
-
           <b-row>
             <b-col>
-              <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Propiedades en Ventas</h2>
+              <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Propiedades en Venta</h2>
             </b-col>
           </b-row>
           <b-row>
-              <cpropiedades></cpropiedades>
-
-            <b-col>1 of 3</b-col>
-            <b-col>2 of 3</b-col>
-            <b-col>3 of 3</b-col>
-            <b-col>4 of 4</b-col>
+            <b-col>
+              <cpropiedadventa></cpropiedadventa>
+            </b-col>
           </b-row>
         <!-- Section Sección avisos arriendo-->
           <b-row>
@@ -46,10 +42,7 @@
             </b-col>
           </b-row>
           <b-row>
-            <b-col>1 of 3</b-col>
-            <b-col>2 of 3</b-col>
-            <b-col>3 of 3</b-col>
-            <b-col>4 of 4</b-col>
+              <cpropiedadarriendo></cpropiedadarriendo>
           </b-row>
 
         <!-- Section Sección avisos portafolio-->
@@ -57,13 +50,14 @@
             <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Portafolio</h2>
           </b-row>
           <b-row>
-            <b-col>1 of 3</b-col>
-            <b-col>2 of 3</b-col>
-            <b-col>3 of 3</b-col>
-            <b-col>4 of 4</b-col>
+            <b-col>
+              <cportafolio></cportafolio>
+            </b-col>
           </b-row>
         <!-- About Section-->
-        <section class="page-section bg-primary text-white mb-0" id="about">
+        <b-row>
+            <b-col>
+              <section class="page-section bg-primary text-white mb-0" id="about">
                 <!-- About Section Heading-->
                 <h2 class="page-section-heading text-center text-uppercase text-white">Acerca de nosotros</h2>
                 <!-- Icon Divider-->
@@ -76,15 +70,17 @@
                 <div class="row">
                     <div class="col-sm12"><p class="lead">{{resultb.data.about}}</p></div>
                 </div>
-                
-        </section>
+              </section>
+            </b-col>
+          </b-row>
         <!-- Section salon comunal-->
           <b-row>
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Salon Comunal</h2>
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Salón Comunal</h2>
           </b-row>
           <b-row>
-            <b-col>1 of 3</b-col>
-            <b-col>2 of 3</b-col>
+            <b-col>
+              <csaloncomunal></csaloncomunal>
+            </b-col>
           </b-row>
           <!-- Contact Section-->
           <!-- Contact Section Heading-->
@@ -95,49 +91,56 @@
           </b-row>
           <b-row>
             <b-col sm="12" lg="6">
-              <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-                <b-row no-gutters>
-                  <b-col md="6">
-                    <b-card-img :src="resultb.data.imagen" alt="Image" class="rounded-0" width="100%" height="100%"></b-card-img>
+                <b-row>
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.5243435300504!2d-74.16923798590985!3d4.678527543153759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9cfcc94cae0d%3A0x5335f540b66e675c!2sConjunto%20Senderos%20De%20La%20Estancia%201!5e0!3m2!1ses-419!2sco!4v1656821072384!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </b-row>
+                <b-row class="text-center">
+                  <b-col sm="4" lg="4" class="float-start">
+                    <a href="#" id="around">
+                      <i class="bi bi-house-door-fill"></i>
+                    </a>
+                    <p class="lead">{{resultb.data.adress}}</p>
                   </b-col>
-                  <b-col md="6">
-                    <b-card-body title="">
-                      <b-card-text>
-                        <p class="lead">{{resultb.data.adress}}</p>
-                        <p class="lead">{{resultb.data.email}}</p>
-                        <p class="lead">{{resultb.data.telephone}}</p>
-                      </b-card-text>
-                    </b-card-body>
+                  <b-col sm="4" lg="4" class="float-start">
+                    <a href="#" id="around">
+                      <i class="bi bi-inbox-fill"></i>
+                    </a>
+                    <p class="lead">{{resultb.data.email}}</p>
+                  </b-col>
+                  <b-col sm="4" lg="4" class="float-start">
+                    <a href="#" id="around">
+                      <i class="bi bi-telephone-inbound-fill"></i>
+                    </a>
+                    <p class="lead">{{resultb.data.telephone}}</p>
                   </b-col>
                 </b-row>
-              </b-card>
             </b-col>
               <b-col sm="12" lg="6">
                 <form id="contactForm" data-sb-form-api-token="API_TOKEN">
                         <!-- Name input-->
                         <div class="form-floating mb-3">
                             <input class="form-control" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
-                            <label for="name">Full name</label>
-                            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                            <label for="name">Nombres y Apellidos</label>
+                            <div class="invalid-feedback" data-sb-feedback="name:required">El campo es requerido</div>
                         </div>
                         <!-- Email address input-->
                         <div class="form-floating mb-3">
                             <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
-                            <label for="email">Email address</label>
-                            <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                            <label for="email">Correo</label>
+                            <div class="invalid-feedback" data-sb-feedback="email:required">El campo es requerido</div>
                             <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                         </div>
                         <!-- Phone number input-->
                         <div class="form-floating mb-3">
                             <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
-                            <label for="phone">Phone number</label>
-                            <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                            <label for="phone">Teléfono</label>
+                            <div class="invalid-feedback" data-sb-feedback="phone:required">El campo es requerido.</div>
                         </div>
                         <!-- Message input-->
                         <div class="form-floating mb-3">
                             <textarea class="form-control" id="message" type="text" placeholder="Enter your message here..." style="height: 10rem" data-sb-validations="required"></textarea>
-                            <label for="message">Message</label>
-                            <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+                            <label for="message">Mensaje</label>
+                            <div class="invalid-feedback" data-sb-feedback="message:required">El campo es requerido.</div>
                         </div>
                         <!-- Submit success message-->
                         <!---->
@@ -145,8 +148,7 @@
                         <!-- has successfully submitted-->
                         <div class="d-none" id="submitSuccessMessage">
                             <div class="text-center mb-3">
-                                <div class="fw-bolder">Form submission successful!</div>
-                                To activate this form, sign up at
+                                <div class="fw-bolder">Formulario enviado satisfactoriamente</div>
                                 <br />
                                 <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
                             </div>
@@ -155,9 +157,9 @@
                         <!---->
                         <!-- This is what your users will see when there is-->
                         <!-- an error submitting the form-->
-                        <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                        <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error enviando mensaje!</div></div>
                         <!-- Submit Button-->
-                        <button class="btn btn-primary btn-xl disabled" id="submitButton" type="submit">Send</button>
+                        <button class="btn btn-primary btn-xl disabled" id="submitButton" type="submit">Enviar</button>
                     </form>
               </b-col>
           </b-row>
@@ -184,7 +186,10 @@
 <script>
 import http from "../http-common";
 import cnoticias from './CarouselNoticias.vue';
-import cpropiedades from './CarouselPropiedades.vue';
+import cpropiedadventa from './CarouselPropiedadesventa.vue';
+import cpropiedadarriendo from './CarouselPropiedadesarriendo.vue';
+import cportafolio from './CarouselPortafolio.vue';
+import csaloncomunal from './SalonComunal.vue';
 
 export default {
   data() {
@@ -219,7 +224,10 @@ export default {
   },
   components: {
     cnoticias,
-    cpropiedades,
+    cpropiedadventa,
+    cpropiedadarriendo,
+    cportafolio,
+    csaloncomunal,
   },
 };
 </script>
@@ -227,5 +235,23 @@ export default {
 <style>
 .row {
   --bs-gutter-x: -1.5rem !important;
+}
+
+#around {
+  background-color: cornflowerblue;
+  border: none;
+  color: white;
+  padding: 20px;
+  justify-content: center;
+  line-height: 5px;
+  display: inline-block;
+  font-size: 30px;
+  border-radius: 100%;
+  width: 30%;
+  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.175) !important;
+  margin-top: 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

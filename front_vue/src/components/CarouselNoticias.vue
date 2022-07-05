@@ -42,13 +42,13 @@ export default {
       }
     },
     mounted() {
-      this.getHead();
+      this.getDataN();
     },
     methods: {
       fortmatResponse(res) {
         return JSON.stringify(res, null, 2);
       },
-      async getHead() {
+      async getDataN() {
         try {
         const res = await http.get("noticia/api/listar/");
         const result = {
@@ -60,7 +60,7 @@ export default {
       }
       },
       clearGetOutput() {
-        this.vgetHead = null;
+        this.getDataN = null;
       },
     },
     components: {

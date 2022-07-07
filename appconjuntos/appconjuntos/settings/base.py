@@ -35,6 +35,8 @@ LOCAL_APPS = [
     'apps.noticia',
     'apps.casillero',
     'apps.auditoria_pedido',
+    'apps.tipo_aviso',
+    'apps.aviso',
 ]
 
 THIRD_APPS = [

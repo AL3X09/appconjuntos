@@ -8,9 +8,9 @@ class ParqueaderoModel(models.Model):
     #historical = HistoricalRecords()
     
     class Meta:
-        verbose_name = 'AuditoriaPedido'
-        verbose_name_plural = 'AuditoriaPedidos'
+        verbose_name = 'Parqueadero'
+        verbose_name_plural = 'Parqueaderos'
 
     #contructor
     def __str__(self):
-       return f'{self.comentarios}'
+       return f'{self.total}'

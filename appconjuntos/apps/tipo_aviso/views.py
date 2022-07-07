@@ -6,60 +6,36 @@ from rest_framework.response import Response
 
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import AvisoModel
-from .serializer import AvisoSerializer
+from .models import TipoAvisoModel
+from .serializer import TipoAvisoSerializer
 
-class AvisoSinAprovarListView(generics.ListAPIView):
-    serializer_class = AvisoSerializer
-
-    def get_queryset(self):
-        return AvisoSerializer.objects.MultipleChoiceFilter(is_active = True, is_approved = False choices=[??])
-        
-class AvisoAprovadosListView(generics.ListAPIView):
-    serializer_class = AvisoSerializer
+class TipoAvisoListView(generics.ListAPIView):
+    serializer_class = TipoAvisoSerializer
 
     def get_queryset(self):
-        return AvisoSerializer.objects.MultipleChoiceFilter(is_active = True, is_approved = True choices=[??])
-
-class AvisoVentaListView(generics.ListAPIView):
-    serializer_class = AvisoSerializer
-
-    def get_queryset(self):
-        return AvisoSerializer.objects.MultipleChoiceFilter(is_active = True, is_approved = True, is_venta = True choices=[???])
-
-class AvisoArriendoListView(generics.ListAPIView):
-    serializer_class = AvisoSerializer
-
-    def get_queryset(self):
-        return AvisoSerializer.objects.MultipleChoiceFilter(is_active = True, is_approved = True, is_arriendo = True choices=[???])
-
-class AvisoPortafolioListView(generics.ListAPIView):
-    serializer_class = AvisoSerializer
-
-    def get_queryset(self):
-        return AvisoSerializer.objects.MultipleChoiceFilter(is_active = True, is_approved = True, is_portafolio = True choices=[???])
+        return TipoAvisoSerializer.objects.filter(is_active = True)
 
 class AvisoCreateView(generics.CreateAPIView):
-    serializer_class = AvisoSerializer
+    serializer_class = TipoAvisoSerializer
 
     def post(self, request):
         try:
             serializer = self.serializer_class(data = request.data)
             if serializer.is_valid():
                 serializer.save()
-                return Response({"mensaje" : "Aviso guradado correctamente"},status = status.HTTP_201_CREATED)
+                return Response({"mensaje" : "Tipo Aviso guradado correctamente"},status = status.HTTP_201_CREATED)
             return Response(serializer.errors,status = status.HTTP_400_BAD_REQUEST)
         
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class AvisoDetailView(generics.RetrieveAPIView):
-    serializer_class = AvisoSerializer
+    serializer_class = TipoAvisoSerializer
     def get_queryset(self):
         return self.get_serializer().Meta.model.objects.filter(is_active = True)
 
 class AvisoDeleteView(generics.DestroyAPIView):
-    serializer_class = AvisoSerializer
+    serializer_class = TipoAvisoSerializer
 
     def get_queryset(self):
         return self.get_queryset().Meta.model.objects.filter(is_active = True)
@@ -71,14 +47,14 @@ class AvisoDeleteView(generics.DestroyAPIView):
             if propiedad:
                 propiedad.is_active = False
                 propiedad.save()
-                return Response({"mensaje" : "Aviso eliminado correctamente"},status = status.HTTP_200_OK)
+                return Response({"mensaje" : "Tipo Aviso eliminado correctamente"},status = status.HTTP_200_OK)
             return Response({"Error" : "Valor no existe"},status = status.HTTP_400_BAD_REQUEST)
 
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 class AvisoUpdateView(generics.UpdateAPIView):
-    serializer_class = AvisoSerializer
+    serializer_class = TipoAvisoSerializer
 
     def get_queryset(self,pk):
         return self.serializer_class().Meta.model.objects.filter(is_active = True).filter(id = pk).first()

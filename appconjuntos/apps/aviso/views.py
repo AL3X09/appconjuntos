@@ -1,5 +1,4 @@
 from typing import OrderedDict
-from appconjuntos.apps.aviso.models import AvisoModel
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
@@ -9,35 +8,35 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import AvisoModel
 from .serializer import AvisoSerializer
 
-class AvisoSinAprovarListView(generics.ListAPIView):
+class AvisoSinAprobarListView(generics.ListAPIView):
     serializer_class = AvisoSerializer
 
     def get_queryset(self):
-        return AvisoSerializer.objects.MultipleChoiceFilter(is_active = True, is_approved = False choices=[??])
+        return AvisoModel.objects.filter(is_active = True).filter(is_approved = False)
         
-class AvisoAprovadosListView(generics.ListAPIView):
+class AvisoAprobadosListView(generics.ListAPIView):
     serializer_class = AvisoSerializer
 
     def get_queryset(self):
-        return AvisoSerializer.objects.MultipleChoiceFilter(is_active = True, is_approved = True choices=[??])
+        return AvisoModel.objects.filter(is_active = True).filter(is_approved = True)
 
 class AvisoVentaListView(generics.ListAPIView):
     serializer_class = AvisoSerializer
 
     def get_queryset(self):
-        return AvisoSerializer.objects.MultipleChoiceFilter(is_active = True, is_approved = True, is_venta = True choices=[???])
+        return AvisoModel.objects.filter(is_active = True).filter(is_approved = True).filter(fk_tipoaviso = 1)
 
 class AvisoArriendoListView(generics.ListAPIView):
     serializer_class = AvisoSerializer
 
     def get_queryset(self):
-        return AvisoSerializer.objects.MultipleChoiceFilter(is_active = True, is_approved = True, is_arriendo = True choices=[???])
+        return AvisoModel.objects.filter(is_active = True).filter(is_approved = True).filter(fk_tipoaviso = 2)
 
 class AvisoPortafolioListView(generics.ListAPIView):
     serializer_class = AvisoSerializer
 
     def get_queryset(self):
-        return AvisoSerializer.objects.MultipleChoiceFilter(is_active = True, is_approved = True, is_portafolio = True choices=[???])
+        return AvisoModel.objects.filter(is_active = True).filter(is_approved = True).filter(fk_tipoaviso = 3)
 
 class AvisoCreateView(generics.CreateAPIView):
     serializer_class = AvisoSerializer

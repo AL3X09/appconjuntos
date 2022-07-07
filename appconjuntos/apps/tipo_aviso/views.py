@@ -1,5 +1,4 @@
 from typing import OrderedDict
-from appconjuntos.apps.aviso.models import AvisoModel
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
@@ -13,9 +12,9 @@ class TipoAvisoListView(generics.ListAPIView):
     serializer_class = TipoAvisoSerializer
 
     def get_queryset(self):
-        return TipoAvisoSerializer.objects.filter(is_active = True)
+        return TipoAvisoModel.objects.filter(is_active = True)
 
-class AvisoCreateView(generics.CreateAPIView):
+class TipoAvisoCreateView(generics.CreateAPIView):
     serializer_class = TipoAvisoSerializer
 
     def post(self, request):
@@ -29,12 +28,12 @@ class AvisoCreateView(generics.CreateAPIView):
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-class AvisoDetailView(generics.RetrieveAPIView):
+class TipoAvisoDetailView(generics.RetrieveAPIView):
     serializer_class = TipoAvisoSerializer
     def get_queryset(self):
         return self.get_serializer().Meta.model.objects.filter(is_active = True)
 
-class AvisoDeleteView(generics.DestroyAPIView):
+class TipoAvisoDeleteView(generics.DestroyAPIView):
     serializer_class = TipoAvisoSerializer
 
     def get_queryset(self):
@@ -53,7 +52,7 @@ class AvisoDeleteView(generics.DestroyAPIView):
         except ObjectDoesNotExist:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-class AvisoUpdateView(generics.UpdateAPIView):
+class TipoAvisoUpdateView(generics.UpdateAPIView):
     serializer_class = TipoAvisoSerializer
 
     def get_queryset(self,pk):
